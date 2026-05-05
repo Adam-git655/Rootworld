@@ -4,7 +4,7 @@
 struct WorldClock
 {
 	float timeOfDay = 6.0f;
-	float daySpeed = 0.2f;
+	float daySpeed = 0.1f;
 	int day = 1;
 
 	float dayProgress() const

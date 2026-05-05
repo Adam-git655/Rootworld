@@ -234,7 +234,7 @@ void Game::Update()
 										entityManager.getComponentStorage<TransformComponent>(),
 										entityManager.getComponentStorage<PhysicsComponent>());
 
-	//enemySpawnerSystem.update(entityManager, entityFactory, enemyTextures, chunksManager, playerEntity, deltaTime);
+	enemySpawnerSystem.update(entityManager, entityFactory, enemyTextures, chunksManager, playerEntity, deltaTime);
 	dayNightSystem.update(worldClock, deltaTime);
 	combatSystem.update(entityManager, soundManager);
 	healthSystem.update(entityManager, playerSpawnPos);

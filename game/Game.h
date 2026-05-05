@@ -49,7 +49,7 @@ private:
 	bool showAIDebugLines = false;
 	float masterVolume = 100.0f;
 
-	Vec2 playerSpawnPos = { 0.0f, 0.0f };
+	Vec2 playerSpawnPos = { 0.0f, 5000.0f };
 
 	LightingSystem lightingSystem;
 	ChunksManager chunksManager;
