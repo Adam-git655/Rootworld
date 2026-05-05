@@ -19,7 +19,7 @@ private:
 	std::mt19937 gen{ std::random_device{}() };
 
 	float spawnTimer = 0.0f;
-	float spawnInterval = 3.0f;
+	float spawnInterval = 4.0f;
 	float spawnRangeMin = 200.0f;
 	float spawnRangeMax = 1000.0f;
 

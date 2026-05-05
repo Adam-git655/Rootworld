@@ -36,6 +36,7 @@ Entt EntityFactory::createZombie(Vec2& spawnPos, const sf::Texture& zombieTex)
 	mgr.addComponent<RenderComponent>(e, { false, {}, {0.25f, 0.25f}, zombieTex, true });
 	mgr.addComponent<FactionComponent>(e, { Faction::Enemy });
 	mgr.addComponent<WeaponComponent>(e, { "fist", 5.0f, {}, 1.75f, 50.0f, false });
+	mgr.addComponent<EnemyDayNightComponent>(e, { false });
 
 	AnimationComponent anim;
 	anim.addAnimation("idle", { 0, 0, 0, 0, 157, 213, 0.06f, false });
@@ -57,6 +58,7 @@ Entt EntityFactory::createBloodBat(Vec2& spawnPos, const sf::Texture& bloodBatTe
 	mgr.addComponent<RenderComponent>(e, { false, {}, {1.15f, 1.15f}, bloodBatTex, true });
 	mgr.addComponent<FactionComponent>(e, { Faction::Enemy });
 	mgr.addComponent<WeaponComponent>(e, { "teeth", 3.0f, {}, 1.5f, 100.0f, false });
+	mgr.addComponent<EnemyDayNightComponent>(e, { true });
 
 	AnimationComponent anim;
 	anim.addAnimation("flight", { 0, 1050, 150, 0, 150, 150, 0.06f, false });
