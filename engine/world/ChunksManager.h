@@ -8,7 +8,7 @@
 class ChunksManager
 {
 public:
-	ChunksManager(int seed);
+	ChunksManager(int seed, LightingSystem* lightingSystem);
 	
 	Chunk* getChunkIfExists(int chunkX);
 	int getChunkXFromWorldX(float worldX);
@@ -18,7 +18,7 @@ public:
 
 	const sf::Texture& getTexture(const std::string& textureName) const;
 
-	void UpdateAndRenderChunks(float dt, Vec2& playerPos, sf::RenderWindow& window); //Render chunks according to player position
+	void UpdateAndRenderChunks(float dt, Vec2& playerPos, float timeProgress, sf::RenderWindow& window); //Render chunks according to player position
 	void collisionsWithTerrain(ComponentStorage<CollisionComponent>& collisionStorage,
 							   ComponentStorage<TransformComponent>& transformStorage,
 		                       ComponentStorage<PhysicsComponent>& physicsStorage);
@@ -36,10 +36,13 @@ private:
 	std::unordered_map<int, Chunk*> renderedChunks;
 	std::vector<IVec2> treePositions;
 
-	LightingSystem lighting;
+	LightingSystem* lighting = nullptr;
 	int seed;
 	int renderDistance = 3;
 	bool isLighting = true;
+
+	float updateLightingTimer = 0.0f;
+	float updateLightingInterval = 5.0f;
 
 	BiomeManager biomeManager{ seed };
 

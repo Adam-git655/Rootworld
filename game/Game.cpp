@@ -2,7 +2,7 @@
 
 Game::Game(unsigned int width, unsigned int height)
 	:windowWidth(width), windowHeight(height),
-	chunksManager(std::time(nullptr))
+	chunksManager(std::time(nullptr), &lightingSystem)
 {
 	window.create(sf::VideoMode(windowWidth, windowHeight), "BAD TERRARIA CLONE");
 	Init();
@@ -234,8 +234,8 @@ void Game::Update()
 										entityManager.getComponentStorage<TransformComponent>(),
 										entityManager.getComponentStorage<PhysicsComponent>());
 
-	enemySpawnerSystem.update(entityManager, entityFactory, enemyTextures, chunksManager, playerEntity, deltaTime);
-
+	//enemySpawnerSystem.update(entityManager, entityFactory, enemyTextures, chunksManager, playerEntity, deltaTime);
+	dayNightSystem.update(worldClock, deltaTime);
 	combatSystem.update(entityManager, soundManager);
 	healthSystem.update(entityManager, playerSpawnPos);
 	renderSystem.update(entityManager, deltaTime);
@@ -615,12 +615,14 @@ void Game::RenderSettings()
 
 void Game::Render()
 {
-	window.clear(sf::Color(0, 191, 255)); //Sky color
+	float t = worldClock.dayProgress();
+	window.clear(lightingSystem.getSkyColor(t)); //Sky color based on time
 	window.setView(camera);
 
 	auto& transform = entityManager.getComponentStorage<TransformComponent>().get(playerEntity);
 
-	chunksManager.UpdateAndRenderChunks(static_cast<float>(deltaTime), transform.position, window);
+	lightingSystem.setLightingForTimeOfDay(t);
+	chunksManager.UpdateAndRenderChunks(static_cast<float>(deltaTime), transform.position, t, window);
 	renderSystem.draw(entityManager, window);
 
 	RenderHotbar();

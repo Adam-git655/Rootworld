@@ -1,7 +1,7 @@
 #include "ChunksManager.h"
 
-ChunksManager::ChunksManager(int seed)
-	:seed(seed)
+ChunksManager::ChunksManager(int seed, LightingSystem* lightingSystem)
+	:seed(seed), lighting(lightingSystem)
 {
 	if (!grassTex.loadFromFile(RESOURCES_PATH "grass.png"))
 	{
@@ -105,7 +105,7 @@ Tile::TileType ChunksManager::DestroyTile(sf::Vector2f pos)
 	tile.setSolid(false);
 
 	if (typeOfTileRemoved == Tile::TileType::Torch)
-		lighting.RemoveLightSource(tileX, tileY);
+		lighting->RemoveLightSource(tileX, tileY);
 
 	UpdateLightingForRegion(tileX, tileY);
 
@@ -135,7 +135,7 @@ bool ChunksManager::PlaceTile(sf::Vector2f pos, Tile::TileType blockType, bool s
 	tile.setSolid(solid);
 
 	if (blockType == Tile::TileType::Torch)
-		lighting.AddLightSource(tileX, tileY, 15, sf::Color(255, 200, 150));
+		lighting->AddLightSource(tileX, tileY, 15, sf::Color(255, 200, 150));
 
 	UpdateLightingForRegion(tileX, tileY);
 
@@ -176,9 +176,17 @@ const sf::Texture& ChunksManager::getTexture(const std::string& textureName) con
 	}
 }
 
-void ChunksManager::UpdateAndRenderChunks(float dt, Vec2& playerPos, sf::RenderWindow& window)
+void ChunksManager::UpdateAndRenderChunks(float dt, Vec2& playerPos, float timeProgress, sf::RenderWindow& window)
 {
 	int playerChunkX = getChunkXFromWorldX(playerPos.x);
+
+	//update lighting every few seconds
+	updateLightingTimer += dt;
+	if (updateLightingTimer >= updateLightingInterval)
+	{
+		UpdateLighting();
+		updateLightingTimer = 0.0f;
+	}
 
 	//determine visible chunks based on their chunkX's (around the player)
 	std::unordered_set<int> visibleChunkXs;
@@ -285,7 +293,10 @@ void ChunksManager::UpdateAndRenderChunks(float dt, Vec2& playerPos, sf::RenderW
 					continue;
 				}
 
-				tileSprite.setColor(tile.getLightColor());
+				if (tile.getType() == Tile::TileType::CaveAir)
+					tileSprite.setColor(lighting->InterPolateSkyColorOnLightLevel(currentChunkX, x, y, timeProgress));
+				else
+					tileSprite.setColor(tile.getLightColor());
 
 				int worldTileX = currentChunkX * Chunk::CHUNK_WIDTH + x;
 
@@ -485,13 +496,13 @@ void ChunksManager::EnableLighting()
 void ChunksManager::UpdateLighting()
 {
 	if (isLighting)
-		lighting.UpdateLighting(renderedChunks);
+		lighting->UpdateLighting(renderedChunks);
 }
 
 void ChunksManager::UpdateLightingForRegion(int worldX, int worldY)
 {
 	if (isLighting)
-		lighting.UpdateLightingRegion(renderedChunks, worldX, worldY);
+		lighting->UpdateLightingRegion(renderedChunks, worldX, worldY);
 }
 
 void ChunksManager::collisionsWithTerrain(ComponentStorage<CollisionComponent>& collisionStorage,

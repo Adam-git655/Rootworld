@@ -3,8 +3,10 @@
 #include "imgui.h"
 #include "imgui-SFML.h"
 
+#include "engine/rendering/LightingSystem.h"
 #include "engine/world/ChunksManager.h"
 #include "engine/world/PerlinNoise.h"
+#include "WorldClock.h"
 #include "SoundManager.h"
 #include "Item.h"
 
@@ -17,6 +19,7 @@
 #include "Systems/RenderSystem.h"
 #include "Systems/InventorySystem.h"
 #include "Systems/EnemySpawnerSystem.h"
+#include "Systems/DayNightSystem.h"
 
 #include <vector>
 
@@ -41,15 +44,17 @@ private:
 	double deltaTime = 0.0;
 	sf::Clock deltaClock;
 
-	//Setttings
+	//Settings
 	bool isLighting = true;
 	bool showAIDebugLines = false;
 	float masterVolume = 100.0f;
 
 	Vec2 playerSpawnPos = { 0.0f, 0.0f };
 
+	LightingSystem lightingSystem;
 	ChunksManager chunksManager;
 	SoundManager soundManager;
+	WorldClock worldClock;
 
 	//Textures
 	sf::Texture playerTex;
@@ -76,6 +81,7 @@ private:
 	RenderSystem renderSystem;
 	InventorySystem inventorySystem;
 	EnemySpawnerSystem enemySpawnerSystem;
+	DayNightSystem dayNightSystem;
 
 	//Inventory
 	bool renderInventory = false;

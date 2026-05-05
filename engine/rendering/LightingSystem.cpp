@@ -49,6 +49,14 @@ void LightingSystem::UpdateLighting(const std::unordered_map<int, Chunk*>& rende
 	}
 }
 
+void LightingSystem::setLightingForTimeOfDay(float timeProgress)
+{
+	//use sin to interpolate brightness from 0 to 1 to 0
+	float brightness = std::max(0.0f, std::sin(timeProgress * 3.14159f));
+
+	MAX_LIGHT_LEVEL = static_cast<int>(MIN_MAX_LIGHT_LEVEL + brightness * MAX_MAX_LIGHT_LEVEL);
+}
+
 void LightingSystem::PropogateSunlight(const std::unordered_map<int, Chunk*>& renderedChunks)
 {
 	for (const auto& [chunkX, chunkPtr] : renderedChunks)
@@ -108,7 +116,7 @@ void LightingSystem::PropogateSunlight(const std::unordered_map<int, Chunk*>& re
 		{
 			for (int y = 0; y < Chunk::CHUNK_HEIGHT; ++y)
 			{
-				float t = static_cast<float>(lightLevelMap[x][y]) / 15.0f;
+				float t = static_cast<float>(lightLevelMap[x][y]) / MAX_MAX_LIGHT_LEVEL;
 				lightMap[x][y] = InterpolateColor(t);
 			}
 		}
@@ -155,7 +163,7 @@ void LightingSystem::UpdateLightSources(const std::unordered_map<int, Chunk*>& r
 		{
 			for (int y = 0; y < Chunk::CHUNK_HEIGHT; ++y)
 			{
-				float t = static_cast<float>(lightLevelMap[x][y]) / 15.0f;
+				float t = static_cast<float>(lightLevelMap[x][y]) / MAX_MAX_LIGHT_LEVEL;
 				lightMap[x][y] = InterpolateColor(t);
 			}
 		}
@@ -293,7 +301,7 @@ void LightingSystem::UpdateLightingRegion(const std::unordered_map<int, Chunk*>&
 			auto& lightMap = itLM->second;
 			auto& lightLevelMap = itLL->second;
 
-			float t = static_cast<float>(lightLevelMap[localX][y]) / 15.0f;
+			float t = static_cast<float>(lightLevelMap[localX][y]) / MAX_MAX_LIGHT_LEVEL;
 			lightMap[localX][y] = InterpolateColor(t);
 
 			chunk->getTile(localX, y).setLightColor(lightMap[localX][y]);
@@ -375,4 +383,35 @@ sf::Color LightingSystem::InterpolateColor(float t) const
 			static_cast<sf::Uint8>(AMBIENT_LIGHT.b + (WHITE_LIGHT.b - AMBIENT_LIGHT.b) * t * 1.25f)
 		);
 	}
+}
+
+sf::Color LightingSystem::getSkyColor(float timeProgress)
+{
+	float brightness = std::max(0.0f, std::sin(timeProgress * 3.14159f));
+
+	return sf::Color(
+		static_cast<uint8_t>(MIDNIGHT_COLOR.r + brightness * (NOON_COLOR.r - MIDNIGHT_COLOR.r)),
+		static_cast<uint8_t>(MIDNIGHT_COLOR.g + brightness * (NOON_COLOR.g - MIDNIGHT_COLOR.g)),
+		static_cast<uint8_t>(MIDNIGHT_COLOR.b + brightness * (NOON_COLOR.b - MIDNIGHT_COLOR.b))
+	);
+}
+
+sf::Color LightingSystem::InterPolateSkyColorOnLightLevel(int chunkX, int localX, int y, float timeProgress)
+{
+	auto itLL = lightLevelMaps.find(chunkX);
+	if (itLL == lightLevelMaps.end())
+		return NOON_COLOR;
+
+	auto& lightLevelMap = itLL->second;
+
+	float t = static_cast<float>(lightLevelMap[localX][y]) / MAX_MAX_LIGHT_LEVEL;
+	t = std::clamp(t, 0.0f, 1.0f);
+
+	sf::Color currentSky = getSkyColor(timeProgress);
+
+	return sf::Color(
+		static_cast<uint8_t>(AMBIENT_LIGHT.r + t * (currentSky.r - AMBIENT_LIGHT.r)),
+		static_cast<uint8_t>(AMBIENT_LIGHT.g + t * (currentSky.g - AMBIENT_LIGHT.g)),
+		static_cast<uint8_t>(AMBIENT_LIGHT.b + t * (currentSky.b - AMBIENT_LIGHT.b))
+	);
 }
