@@ -18,11 +18,10 @@ cmake --build .
 ```
 
 ## Features
-### Current Features
 
 - Entity component system architecture for robust entity management.
 - Sprite rendering and player movement
-- Player and zombie animations
+- Animation support
 - Infinite world generation using a chunk system
 - Terrain generation using 1D perlin noise
 - Cave generation using 2D perlin noise and drunkard's walk
@@ -30,16 +29,13 @@ cmake --build .
 - Biome generation (Forest, Desert, Tundra)
 - Player collisions with the tiled environment
 - Smart Zombie AI using A* pathfinding
-- Basic Combat System
+- Flying enemies (Blood Bats)
+- Combat System with hit feedback
 - Lighting System using BFS Blood-fill algorithm.
+- Day and Night system
 - Inventory + Hotbar system for management of items. (50 item capacity)
 - Audio system with volume control
 - Ability to place and destroy blocks
-  
-### Features to add
-
-- More block types and minerals
-- More enemies
   
 ## Controls
 
