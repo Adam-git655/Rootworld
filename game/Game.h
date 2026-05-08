@@ -20,6 +20,7 @@
 #include "Systems/InventorySystem.h"
 #include "Systems/EnemySpawnerSystem.h"
 #include "Systems/DayNightSystem.h"
+#include "Systems/UISystem.h"
 
 #include <vector>
 
@@ -61,6 +62,7 @@ private:
 	sf::Texture zombieTex;
 	sf::Texture bloodBatTex;
 	sf::Texture shortSwordTex;
+	sf::Texture heartTex;
 
 	const std::unordered_map<Enemies, sf::Texture*> enemyTextures
 	{
@@ -82,6 +84,7 @@ private:
 	InventorySystem inventorySystem;
 	EnemySpawnerSystem enemySpawnerSystem;
 	DayNightSystem dayNightSystem;
+	UISystem uiSystem;
 
 	//Inventory
 	bool renderInventory = false;

@@ -37,6 +37,10 @@ void Game::Init()
 	{
 		std::cout << "ERROR LOADING SHORT SWORD TEX\n";
 	}
+	if (!heartTex.loadFromFile(RESOURCES_PATH "heart_animated_2.png"))
+	{
+		std::cout << "ERROR LOADING HEART TEX\n";
+	}
 
 	//Create player
 	playerEntity = entityFactory.createPlayer(playerSpawnPos, playerTex);
@@ -624,6 +628,10 @@ void Game::Render()
 	lightingSystem.setLightingForTimeOfDay(t);
 	chunksManager.UpdateAndRenderChunks(static_cast<float>(deltaTime), transform.position, t, window);
 	renderSystem.draw(entityManager, window);
+
+	window.setView(window.getDefaultView());
+	uiSystem.renderUI(entityManager, playerEntity, heartTex, window);
+	window.setView(camera);
 
 	RenderHotbar();
 	RenderInventory();
