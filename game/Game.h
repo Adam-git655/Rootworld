@@ -124,7 +124,4 @@ private:
 	void Render();
 
 	void HandleMouseInput(const sf::Event event, ImGuiIO& io);
-	void RenderHotbar();
-	void RenderInventory();
-	void RenderSettings();
 };
