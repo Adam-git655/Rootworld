@@ -294,7 +294,12 @@ void ChunksManager::UpdateAndRenderChunks(float dt, Vec2& playerPos, float timeP
 				}
 
 				if (tile.getType() == Tile::TileType::CaveAir)
-					tileSprite.setColor(lighting->InterPolateSkyColorOnLightLevel(currentChunkX, x, y, timeProgress));
+				{
+					if (isLighting)
+						tileSprite.setColor(lighting->InterPolateSkyColorOnLightLevel(currentChunkX, x, y, timeProgress));
+					else
+						tileSprite.setColor(lighting->getSkyColor(timeProgress));
+				}
 				else
 					tileSprite.setColor(tile.getLightColor());
 
