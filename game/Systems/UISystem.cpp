@@ -3,13 +3,13 @@
 void UISystem::renderUI(EntityManager& mgr, Entt playerEntity, 
 						sf::Texture& heartTexture, bool renderInv,
 						std::unordered_map<std::string, ItemDef>& itemRegistry, ChunksManager& chunksManager, sf::Texture& shortSwordTex,
-						RenderSystem& renderSystem, SoundManager& soundManager, bool& isLighting, bool& showAIDebugLines, float& masterVolume,
+						RenderSystem& renderSystem, EnemySpawnerSystem& enemySpawnerSystem, SoundManager& soundManager, bool& isLighting, bool& spawnZombies, bool& spawnBats, bool& showAIDebugLines, float& masterVolume,
 						sf::RenderWindow& window)
 {
 	renderHearts(mgr, playerEntity, heartTexture, window);
 	renderHotbar(mgr, playerEntity, itemRegistry, chunksManager, shortSwordTex);
 	renderInventory(mgr, playerEntity, renderInv, itemRegistry, chunksManager, shortSwordTex);
-	renderSettings(chunksManager, renderSystem, soundManager, isLighting, showAIDebugLines, masterVolume);
+	renderSettings(chunksManager, renderSystem, enemySpawnerSystem, soundManager, isLighting, spawnZombies, spawnBats, showAIDebugLines, masterVolume);
 }
 
 void UISystem::renderHearts(EntityManager& mgr, Entt playerEntity, sf::Texture& heartTexture, sf::RenderWindow& window) const
@@ -355,7 +355,7 @@ void UISystem::renderInventory(EntityManager& mgr, Entt playerEntity, bool rende
 	ImGui::End();
 }
 
-void UISystem::renderSettings(ChunksManager& chunksManager, RenderSystem& renderSystem, SoundManager& soundManager, bool& isLighting, bool& showAIDebugLines, float& masterVolume)
+void UISystem::renderSettings(ChunksManager& chunksManager, RenderSystem& renderSystem, EnemySpawnerSystem& enemySpawnerSystem, SoundManager& soundManager, bool& isLighting, bool& spawnZombies, bool& spawnBats, bool& showAIDebugLines, float& masterVolume)
 {
 	const ImGuiViewport* viewport = ImGui::GetMainViewport();
 
@@ -375,6 +375,22 @@ void UISystem::renderSettings(ChunksManager& chunksManager, RenderSystem& render
 			chunksManager.EnableLighting();
 		else
 			chunksManager.DisableLighting();
+	}
+
+	if (ImGui::Checkbox("Spawn Zombies", &spawnZombies))
+	{
+		if (spawnZombies)
+			enemySpawnerSystem.setEnemySpawnChance(Enemies::Zombie, enemySpawnerSystem.defaultZombieSpawnChance);
+		else
+			enemySpawnerSystem.setEnemySpawnChance(Enemies::Zombie, 0.0f);
+	}
+
+	if (ImGui::Checkbox("Spawn Bats", &spawnBats))
+	{
+		if (spawnBats)
+			enemySpawnerSystem.setEnemySpawnChance(Enemies::BloodBat, enemySpawnerSystem.defaultBatSpawnChance);
+		else
+			enemySpawnerSystem.setEnemySpawnChance(Enemies::BloodBat, 0.0f);
 	}
 
 	if (ImGui::Checkbox("Show Pathfinding lines", &showAIDebugLines))

@@ -47,6 +47,8 @@ private:
 
 	//Settings
 	bool isLighting = true;
+	bool spawnZombies = true;
+	bool spawnBats = true;
 	bool showAIDebugLines = false;
 	float masterVolume = 100.0f;
 

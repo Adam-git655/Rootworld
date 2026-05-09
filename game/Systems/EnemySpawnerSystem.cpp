@@ -39,6 +39,18 @@ void EnemySpawnerSystem::update(EntityManager& mgr, EntityFactory& entityFactory
 	}
 }
 
+void EnemySpawnerSystem::setEnemySpawnChance(Enemies enemy, float newSpawnChance)
+{
+	for (auto& e : enemySpawnChancesMap)
+	{
+		if (e.first == enemy)
+		{
+			e.second = newSpawnChance;
+			return;
+		}
+	}
+}
+
 Enemies EnemySpawnerSystem::pickRandomEnemy()
 {
 	std::uniform_real_distribution<float> chanceDist(0.0f, 1.0f);

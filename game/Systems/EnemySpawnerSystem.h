@@ -15,6 +15,10 @@ class EnemySpawnerSystem
 public:
 	void update(EntityManager& mgr, EntityFactory& entityFactory, const std::unordered_map<Enemies, sf::Texture*>& enemyTextures, ChunksManager& chunksManager, Entt playerEntity, float dt);
 
+	void setEnemySpawnChance(Enemies enemy, float newChance);
+	float defaultZombieSpawnChance = 0.6f;
+	float defaultBatSpawnChance = 0.4f;
+
 private:
 	std::mt19937 gen{ std::random_device{}() };
 
@@ -25,8 +29,8 @@ private:
 
 	std::vector<std::pair<Enemies, float>> enemySpawnChancesMap =
 	{
-		{Enemies::Zombie, 0.6},
-		{Enemies::BloodBat, 0.4}
+		{Enemies::Zombie, defaultZombieSpawnChance},
+		{Enemies::BloodBat, defaultBatSpawnChance}
 	};
 
 	Enemies pickRandomEnemy();
