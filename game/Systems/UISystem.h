@@ -34,5 +34,5 @@ private:
 	void renderHearts(EntityManager& mgr, Entt playerEntity, sf::Texture& heartTexture, sf::RenderWindow& window) const;
 	void renderHotbar(EntityManager& mgr, Entt playerEntity, std::unordered_map<std::string, ItemDef>& itemRegistry, ChunksManager& chunksManager, sf::Texture& shortSwordTex);
 	void renderInventory(EntityManager& mgr, Entt playerEntity, bool renderInv, std::unordered_map<std::string, ItemDef>& itemRegistry, ChunksManager& chunksManager, sf::Texture& shortSwordTex);
-	void renderSettings(ChunksManager& chunksManager, RenderSystem& renderSystem, EnemySpawnerSystem& enemySpawnerSystem, SoundManager& soundManager, bool& isLighting, bool& spawnZombies, bool& spawnBats, bool& enableDumbFollowAsFallback, bool& showAIDebugLines, float& masterVolume);
+	void renderSettings(EntityManager& mgr, ChunksManager& chunksManager, RenderSystem& renderSystem, EnemySpawnerSystem& enemySpawnerSystem, SoundManager& soundManager, bool& isLighting, bool& spawnZombies, bool& spawnBats, bool& enableDumbFollowAsFallback, bool& showAIDebugLines, float& masterVolume);
 };

@@ -9,7 +9,7 @@ void UISystem::renderUI(EntityManager& mgr, Entt playerEntity,
 	renderHearts(mgr, playerEntity, heartTexture, window);
 	renderHotbar(mgr, playerEntity, itemRegistry, chunksManager, shortSwordTex);
 	renderInventory(mgr, playerEntity, renderInv, itemRegistry, chunksManager, shortSwordTex);
-	renderSettings(chunksManager, renderSystem, enemySpawnerSystem, soundManager, isLighting, spawnZombies, spawnBats, enableDumbFollowAsFallback, showAIDebugLines, masterVolume);
+	renderSettings(mgr, chunksManager, renderSystem, enemySpawnerSystem, soundManager, isLighting, spawnZombies, spawnBats, enableDumbFollowAsFallback, showAIDebugLines, masterVolume);
 }
 
 void UISystem::renderHearts(EntityManager& mgr, Entt playerEntity, sf::Texture& heartTexture, sf::RenderWindow& window) const
@@ -355,7 +355,7 @@ void UISystem::renderInventory(EntityManager& mgr, Entt playerEntity, bool rende
 	ImGui::End();
 }
 
-void UISystem::renderSettings(ChunksManager& chunksManager, RenderSystem& renderSystem, EnemySpawnerSystem& enemySpawnerSystem, SoundManager& soundManager, bool& isLighting, bool& spawnZombies, bool& spawnBats, bool& enableDumbFollowAsFallback, bool& showAIDebugLines, float& masterVolume)
+void UISystem::renderSettings(EntityManager& mgr, ChunksManager& chunksManager, RenderSystem& renderSystem, EnemySpawnerSystem& enemySpawnerSystem, SoundManager& soundManager, bool& isLighting, bool& spawnZombies, bool& spawnBats, bool& enableDumbFollowAsFallback, bool& showAIDebugLines, float& masterVolume)
 {
 	const ImGuiViewport* viewport = ImGui::GetMainViewport();
 
@@ -397,6 +397,13 @@ void UISystem::renderSettings(ChunksManager& chunksManager, RenderSystem& render
 	{
 		if (ImGui::Checkbox("Enable dumb follow as fallback to A*", &enableDumbFollowAsFallback))
 		{
+			//change setting in currently active zombies
+			for (auto& [e, ai] : mgr.getComponentStorage<AIComponent>().getAll())
+			{
+				ai.enableDumbFollowAsFallback = enableDumbFollowAsFallback;
+			}
+
+			//change setting for future zombies
 			enemySpawnerSystem.zombieDumbFollowAsFallback = enableDumbFollowAsFallback;
 		}
 		if (ImGui::Checkbox("Show Pathfinding lines", &showAIDebugLines))
