@@ -24,13 +24,14 @@ Entt EntityFactory::createPlayer(Vec2& spawnPos, const sf::Texture& playerTex)
 	return e;
 }
 
-Entt EntityFactory::createZombie(Vec2& spawnPos, const sf::Texture& zombieTex)
+Entt EntityFactory::createZombie(Vec2& spawnPos, const sf::Texture& zombieTex, bool enableDumbFollowAsFallback)
 {
 	Entt e = mgr.create();
 	mgr.addComponent<TransformComponent>(e, { spawnPos, spawnPos });
 	mgr.addComponent<PhysicsComponent>(e, {});
 	mgr.addComponent<MovementComponent>(e, { 200.0f, 600.0f, 600.0f, false });
 	mgr.addComponent<AIComponent>(e, {});
+	mgr.getComponent<AIComponent>(e).enableDumbFollowAsFallback = enableDumbFollowAsFallback;
 	mgr.addComponent<CollisionComponent>(e, { {0.0f, 0.0f, 39.25f, 53.25f} });
 	mgr.addComponent<HealthComponent>(e, { 30.0f, 30.0f });
 	mgr.addComponent<RenderComponent>(e, { false, {}, {0.25f, 0.25f}, zombieTex, true });

@@ -290,7 +290,7 @@ void Game::Render()
 	window.setView(window.getDefaultView()); //set view mode to screen space before drawing ui
 	uiSystem.renderUI(entityManager, playerEntity, heartTex, 
 					renderInventory, itemRegistry, chunksManager, shortSwordTex,
-					renderSystem, enemySpawnerSystem, soundManager, isLighting, spawnZombies, spawnBats, showAIDebugLines, masterVolume,
+					renderSystem, enemySpawnerSystem, soundManager, isLighting, spawnZombies, spawnBats, enableDumbFollowAsFallback, showAIDebugLines, masterVolume,
 					window);
 	window.setView(camera); //revert view mode to world space
 

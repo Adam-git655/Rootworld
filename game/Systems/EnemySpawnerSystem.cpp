@@ -30,7 +30,7 @@ void EnemySpawnerSystem::update(EntityManager& mgr, EntityFactory& entityFactory
 	if (enemy == Enemies::Zombie)
 	{
 		Vec2 spawnPos = pickSpawnPosZombie(playerPos, chunksManager);
-		entityFactory.createZombie(spawnPos, *enemyTex);
+		entityFactory.createZombie(spawnPos, *enemyTex, zombieDumbFollowAsFallback);
 	}
 	else if (enemy == Enemies::BloodBat)
 	{

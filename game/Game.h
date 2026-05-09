@@ -33,7 +33,7 @@ public:
 	void Run();
 
 private:
-	//Settings and stuff
+	//Game Settings and stuff
 	unsigned int windowWidth;
 	unsigned int windowHeight;
 
@@ -45,15 +45,20 @@ private:
 	double deltaTime = 0.0;
 	sf::Clock deltaClock;
 
-	//Settings
-	bool isLighting = true;
-	bool spawnZombies = true;
-	bool spawnBats = true;
-	bool showAIDebugLines = false;
-	float masterVolume = 100.0f;
-
 	Vec2 playerSpawnPos = { 0.0f, 5000.0f };
 
+	//Settings window
+	bool isLighting = true;
+
+	bool spawnZombies = true;
+	bool spawnBats = true;
+
+	bool enableDumbFollowAsFallback = true;
+	bool showAIDebugLines = false;
+
+	float masterVolume = 100.0f;
+
+	//Objects
 	LightingSystem lightingSystem;
 	ChunksManager chunksManager;
 	SoundManager soundManager;

@@ -19,6 +19,7 @@ public:
 	float defaultZombieSpawnChance = 0.6f;
 	float defaultBatSpawnChance = 0.4f;
 
+	bool zombieDumbFollowAsFallback = true;
 private:
 	std::mt19937 gen{ std::random_device{}() };
 

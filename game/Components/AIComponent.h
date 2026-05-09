@@ -8,6 +8,7 @@ struct AIComponent
 	int currentPathIndex = 1;
 	sf::VertexArray lines;
 	bool hasActivePath = false;
+	bool enableDumbFollowAsFallback = true;
 
 	IVec2 currentTile;
 	IVec2 nextTile;

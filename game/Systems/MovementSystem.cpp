@@ -94,7 +94,7 @@ void MovementSystem::update(EntityManager& mgr, SoundManager& soundMgr, float dt
 		{
 			if (ai.hasActivePath)
 				zombieFollowPathAI(physics, movement, render, ai.currentTile, ai.nextTile);
-			else
+			else if (ai.enableDumbFollowAsFallback)
 				zombieFollowPathDumb(playerPos, transform, physics, movement, render, ai, dt);
 
 			if (physics.velocity.x > movement.max_speed)

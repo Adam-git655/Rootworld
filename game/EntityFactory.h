@@ -25,7 +25,7 @@ public:
 	}
 
 	Entt createPlayer(Vec2& spawnPos, const sf::Texture& playerTex);
-	Entt createZombie(Vec2& spawnPos, const sf::Texture& zombieTex);
+	Entt createZombie(Vec2& spawnPos, const sf::Texture& zombieTex, bool enableDumbFollowAsFallback);
 	Entt createBloodBat(Vec2& spawnPos, const sf::Texture& bloodBatTex);
 
 private:

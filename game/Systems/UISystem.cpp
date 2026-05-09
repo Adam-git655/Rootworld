@@ -3,13 +3,13 @@
 void UISystem::renderUI(EntityManager& mgr, Entt playerEntity, 
 						sf::Texture& heartTexture, bool renderInv,
 						std::unordered_map<std::string, ItemDef>& itemRegistry, ChunksManager& chunksManager, sf::Texture& shortSwordTex,
-						RenderSystem& renderSystem, EnemySpawnerSystem& enemySpawnerSystem, SoundManager& soundManager, bool& isLighting, bool& spawnZombies, bool& spawnBats, bool& showAIDebugLines, float& masterVolume,
+						RenderSystem& renderSystem, EnemySpawnerSystem& enemySpawnerSystem, SoundManager& soundManager, bool& isLighting, bool& spawnZombies, bool& spawnBats, bool& enableDumbFollowAsFallback, bool& showAIDebugLines, float& masterVolume,
 						sf::RenderWindow& window)
 {
 	renderHearts(mgr, playerEntity, heartTexture, window);
 	renderHotbar(mgr, playerEntity, itemRegistry, chunksManager, shortSwordTex);
 	renderInventory(mgr, playerEntity, renderInv, itemRegistry, chunksManager, shortSwordTex);
-	renderSettings(chunksManager, renderSystem, enemySpawnerSystem, soundManager, isLighting, spawnZombies, spawnBats, showAIDebugLines, masterVolume);
+	renderSettings(chunksManager, renderSystem, enemySpawnerSystem, soundManager, isLighting, spawnZombies, spawnBats, enableDumbFollowAsFallback, showAIDebugLines, masterVolume);
 }
 
 void UISystem::renderHearts(EntityManager& mgr, Entt playerEntity, sf::Texture& heartTexture, sf::RenderWindow& window) const
@@ -355,7 +355,7 @@ void UISystem::renderInventory(EntityManager& mgr, Entt playerEntity, bool rende
 	ImGui::End();
 }
 
-void UISystem::renderSettings(ChunksManager& chunksManager, RenderSystem& renderSystem, EnemySpawnerSystem& enemySpawnerSystem, SoundManager& soundManager, bool& isLighting, bool& spawnZombies, bool& spawnBats, bool& showAIDebugLines, float& masterVolume)
+void UISystem::renderSettings(ChunksManager& chunksManager, RenderSystem& renderSystem, EnemySpawnerSystem& enemySpawnerSystem, SoundManager& soundManager, bool& isLighting, bool& spawnZombies, bool& spawnBats, bool& enableDumbFollowAsFallback, bool& showAIDebugLines, float& masterVolume)
 {
 	const ImGuiViewport* viewport = ImGui::GetMainViewport();
 
@@ -393,9 +393,16 @@ void UISystem::renderSettings(ChunksManager& chunksManager, RenderSystem& render
 			enemySpawnerSystem.setEnemySpawnChance(Enemies::BloodBat, 0.0f);
 	}
 
-	if (ImGui::Checkbox("Show Pathfinding lines", &showAIDebugLines))
+	if (ImGui::CollapsingHeader("Zombie AI Settings"))
 	{
-		renderSystem.showAIDebugLines = showAIDebugLines;
+		if (ImGui::Checkbox("Enable dumb follow as fallback to A*", &enableDumbFollowAsFallback))
+		{
+			enemySpawnerSystem.zombieDumbFollowAsFallback = enableDumbFollowAsFallback;
+		}
+		if (ImGui::Checkbox("Show Pathfinding lines", &showAIDebugLines))
+		{
+			renderSystem.showAIDebugLines = showAIDebugLines;
+		}
 	}
 
 	if (ImGui::SliderFloat("Master Volume", &masterVolume, 0.0f, 100.0f))
