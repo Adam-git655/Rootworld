@@ -8,6 +8,7 @@ void CombatSystem::update(EntityManager& mgr, SoundManager& soundMgr)
 	auto& factionStorage = mgr.getComponentStorage<FactionComponent>();
 	auto& animationStorage = mgr.getComponentStorage<AnimationComponent>();
 	auto& renderStorage = mgr.getComponentStorage<RenderComponent>();
+	auto& physicsStorage = mgr.getComponentStorage<PhysicsComponent>();
 
 	for (auto& [attackerE, weapon] : weaponStorage.getAll())
 	{
@@ -61,6 +62,17 @@ void CombatSystem::update(EntityManager& mgr, SoundManager& soundMgr)
 			if (squaredDist <= weapon.attackRange * weapon.attackRange)
 			{
 				health.health -= weapon.damage;
+
+				//apply knockback force
+				if (physicsStorage.has(targetE))
+				{
+					auto& targetPhysics = physicsStorage.get(targetE);
+
+					targetPhysics.knockbackTimer = 0.1f;
+					float dir = (targetTransform.position.x < attackerTransform.position.x) ? -1.0f : 1.0f;
+					targetPhysics.velocity.x = dir * weapon.knockbackForce;
+					targetPhysics.velocity.y -= 150.0f;
+				}
 
 				//Damage flash feedback on getting hit
 				if (animationStorage.get(targetE).play("hit", true) == 0)

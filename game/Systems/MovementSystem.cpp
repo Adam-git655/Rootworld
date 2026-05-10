@@ -41,6 +41,14 @@ void MovementSystem::update(EntityManager& mgr, SoundManager& soundMgr, float dt
 		auto& render = renderStorage.get(e);
 
 		transform.prevPos = transform.position;
+		transform.position += physics.velocity * dt;
+
+		if (physics.knockbackTimer > 0.0f)
+		{
+			physics.knockbackTimer -= dt;
+			continue;
+		}
+
 		physics.velocity.x = 0.0f;
 
 		if ((input.movement_keys[sf::Keyboard::W] || input.movement_keys[sf::Keyboard::Space]) && !movement.IsJumping && !physics.IsFalling)
@@ -74,8 +82,6 @@ void MovementSystem::update(EntityManager& mgr, SoundManager& soundMgr, float dt
 		else
 			soundMgr.stopLooping(Sounds::Footsteps);
 
-		transform.position += physics.velocity * dt;
-
 		playerPos = transform.position;
 	}
 
@@ -88,6 +94,14 @@ void MovementSystem::update(EntityManager& mgr, SoundManager& soundMgr, float dt
 		auto& render = renderStorage.get(e);
 
 		transform.prevPos = transform.position;
+		transform.position += physics.velocity * dt;
+
+		if (physics.knockbackTimer > 0.0f)
+		{
+			physics.knockbackTimer -= dt;
+			continue;
+		}
+
 		physics.velocity.x = 0.0f;
 
 		if (ai.canSeePlayer)
@@ -102,8 +116,6 @@ void MovementSystem::update(EntityManager& mgr, SoundManager& soundMgr, float dt
 			if (physics.velocity.x < -movement.max_speed)
 				physics.velocity.x = -movement.max_speed;
 		}
-
-		transform.position += physics.velocity * dt;
 	}
 
 	//Move entities with air AI component (Blood bats)
@@ -115,6 +127,13 @@ void MovementSystem::update(EntityManager& mgr, SoundManager& soundMgr, float dt
 		auto& render = renderStorage.get(e);
 
 		transform.prevPos = transform.position;
+		transform.position += physics.velocity * dt;
+
+		if (physics.knockbackTimer > 0.0f)
+		{
+			physics.knockbackTimer -= dt;
+			continue;
+		}
 		physics.velocity = { 0.0f, 0.0f };
 
 		if (airAI.canSeePlayer)
@@ -136,8 +155,6 @@ void MovementSystem::update(EntityManager& mgr, SoundManager& soundMgr, float dt
 			if (physics.velocity.y < -movement.max_speed)
 				physics.velocity.y = -movement.max_speed;
 		}
-
-		transform.position += physics.velocity * dt;
 	}
 }
 

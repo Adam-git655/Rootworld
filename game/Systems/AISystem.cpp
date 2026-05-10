@@ -73,12 +73,7 @@ void AISystem::update(EntityManager& mgr, ChunksManager& chunksManager, Entt pla
 			else
 			{
 				ai.hasActivePath = false;
-				physics.velocity.x = 0.0f;
 			}
-		}
-		else
-		{
-			physics.velocity.x = 0.0f;
 		}
 	}	
 

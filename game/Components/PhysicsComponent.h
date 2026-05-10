@@ -10,4 +10,5 @@ struct PhysicsComponent
 	float terminalVelocity = 2000.0f;
 	bool IsOnGround = false;
 	bool IsFalling = true;
+	float knockbackTimer = 0.0f;
 };

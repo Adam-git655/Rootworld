@@ -9,4 +9,5 @@ struct WeaponComponent
 	float attackCooldown = 2.0f;
 	float attackRange= 50.0f;
 	bool attackRequested = false;
+	float knockbackForce = 300.0f;
 };

@@ -271,7 +271,7 @@ void Game::Update()
 	{
 		//equips weapon because sword
 		if (item.itemId == "ShortSword" && !weaponsStorage.has(playerEntity))
-			entityManager.addComponent<WeaponComponent>(playerEntity, { "ShortSword", 10.0f, {}, 0.7f, 105.0f, false });
+			entityManager.addComponent<WeaponComponent>(playerEntity, { "ShortSword", 10.0f, {}, 0.5f, 105.0f, false, 300.0f});
 	}
 }
 

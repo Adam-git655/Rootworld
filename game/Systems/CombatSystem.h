@@ -6,6 +6,7 @@
 #include "game/Components/FactionComponent.h"
 #include "game/Components/AnimationComponent.h"
 #include "game/Components/RenderComponent.h"
+#include "game/Components/PhysicsComponent.h"
 
 #include "game/SoundManager.h"
 
