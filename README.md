@@ -1,6 +1,8 @@
 ## Overview
 **Rootworld** is a Terraria-like sandbox game built on top of a custom **ECS** implementation. Made using C++ and the SFML Graphics library
 
+Gameplay vid:- https://www.youtube.com/watch?v=8Y9J4IYPjFU
+
 <img width="1919" height="986" alt="Screenshot 2026-05-10 174601" src="https://github.com/user-attachments/assets/7293e615-6e21-4b74-9c39-b52d3b37a51b" />
 <img width="1919" height="987" alt="Screenshot 2026-05-10 174713" src="https://github.com/user-attachments/assets/615882d1-f485-4f90-8f99-eb55893bb5d7" />
 <img width="1919" height="989" alt="Screenshot 2026-05-10 174901" src="https://github.com/user-attachments/assets/d0ee634d-71c4-4bbd-a38f-f4a55bced7cd" />
