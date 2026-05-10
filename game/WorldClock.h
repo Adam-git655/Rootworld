@@ -3,7 +3,7 @@
 //World Clock
 struct WorldClock
 {
-	float timeOfDay = 22.0f;
+	float timeOfDay = 6.0f;
 	float daySpeed = 0.1f;
 	int day = 1;
 
