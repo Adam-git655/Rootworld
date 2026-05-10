@@ -104,7 +104,7 @@ void MovementSystem::update(EntityManager& mgr, SoundManager& soundMgr, float dt
 
 		physics.velocity.x = 0.0f;
 
-		if (ai.canSeePlayer)
+		if (ai.canSeePlayer && !ai.canAttackPlayer)
 		{
 			if (ai.hasActivePath)
 				zombieFollowPathAI(physics, movement, render, ai.currentTile, ai.nextTile);
