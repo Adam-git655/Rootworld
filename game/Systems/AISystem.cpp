@@ -1,6 +1,6 @@
 #include "AISystem.h"
 
-void AISystem::update(EntityManager& mgr, ChunksManager& chunksManager, Entt playerE, float dt)
+void AISystem::update(EntityManager& mgr, ChunksManager& chunksManager, Entity playerE, float dt)
 {
 	auto& aiStorage = mgr.getComponentStorage<AIComponent>();
 	auto& airAiStorage = mgr.getComponentStorage<AirAIComponent>();

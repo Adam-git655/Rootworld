@@ -6,9 +6,9 @@
 class InventorySystem
 {
 public:
-	void addItem(EntityManager& mgr, Entt e, const std::string& itemId, int amount, std::unordered_map<std::string, ItemDef>& itemRegistry);
+	void addItem(EntityManager& mgr, Entity e, const std::string& itemId, int amount, std::unordered_map<std::string, ItemDef>& itemRegistry);
 
-	void removeItem(EntityManager& mgr, Entt e, const std::string& itemId, int amount);
+	void removeItem(EntityManager& mgr, Entity e, const std::string& itemId, int amount);
 
 private:
 	int addAmount(int existingCount, int amount, int maxStackSize);

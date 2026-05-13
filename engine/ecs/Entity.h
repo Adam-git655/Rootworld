@@ -1,4 +1,4 @@
 #pragma once
 #include <cstdint>
 
-using Entt = uint32_t;
+using Entity = uint32_t;

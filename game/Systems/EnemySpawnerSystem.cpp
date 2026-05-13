@@ -1,6 +1,6 @@
 #include "EnemySpawnerSystem.h"
 
-void EnemySpawnerSystem::update(EntityManager& mgr, EntityFactory& entityFactory, const std::unordered_map<Enemies, sf::Texture*>& enemyTextures, ChunksManager& chunksManager, Entt playerEntity, float dt)
+void EnemySpawnerSystem::update(EntityManager& mgr, EntityFactory& entityFactory, const std::unordered_map<Enemies, sf::Texture*>& enemyTextures, ChunksManager& chunksManager, Entity playerEntity, float dt)
 {
 	spawnTimer += dt;
 

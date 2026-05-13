@@ -9,7 +9,7 @@
 class AISystem
 {
 public:
-	void update(EntityManager& mgr, ChunksManager& chunksManager, Entt playerE, float dt);
+	void update(EntityManager& mgr, ChunksManager& chunksManager, Entity playerE, float dt);
 
 private:
 

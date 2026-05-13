@@ -1,8 +1,8 @@
 #include "EntityFactory.h"
 
-Entt EntityFactory::createPlayer(Vec2& spawnPos, const sf::Texture& playerTex)
+Entity EntityFactory::createPlayer(Vec2& spawnPos, const sf::Texture& playerTex)
 {
-	Entt e = mgr.create();
+	Entity e = mgr.create();
 	mgr.addComponent<TransformComponent>(e, { spawnPos, spawnPos });
 	mgr.addComponent<PhysicsComponent>(e, {});
 	mgr.addComponent<MovementComponent>(e, { 300.0f, 700.0f, 600.0f, false });
@@ -24,9 +24,9 @@ Entt EntityFactory::createPlayer(Vec2& spawnPos, const sf::Texture& playerTex)
 	return e;
 }
 
-Entt EntityFactory::createZombie(Vec2& spawnPos, const sf::Texture& zombieTex, bool enableDumbFollowAsFallback)
+Entity EntityFactory::createZombie(Vec2& spawnPos, const sf::Texture& zombieTex, bool enableDumbFollowAsFallback)
 {
-	Entt e = mgr.create();
+	Entity e = mgr.create();
 	mgr.addComponent<TransformComponent>(e, { spawnPos, spawnPos });
 	mgr.addComponent<PhysicsComponent>(e, {});
 	mgr.addComponent<MovementComponent>(e, { 200.0f, 600.0f, 600.0f, false });
@@ -48,9 +48,9 @@ Entt EntityFactory::createZombie(Vec2& spawnPos, const sf::Texture& zombieTex, b
 	return e;
 }
 
-Entt EntityFactory::createBloodBat(Vec2& spawnPos, const sf::Texture& bloodBatTex)
+Entity EntityFactory::createBloodBat(Vec2& spawnPos, const sf::Texture& bloodBatTex)
 {
-	Entt e = mgr.create();
+	Entity e = mgr.create();
 	mgr.addComponent<TransformComponent>(e, { spawnPos, spawnPos });
 	mgr.addComponent<PhysicsComponent>(e, { false });
 	mgr.addComponent<MovementComponent>(e, { 200.0f, 350.0f });

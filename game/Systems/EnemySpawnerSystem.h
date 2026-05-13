@@ -13,7 +13,7 @@ enum class Enemies
 class EnemySpawnerSystem
 {
 public:
-	void update(EntityManager& mgr, EntityFactory& entityFactory, const std::unordered_map<Enemies, sf::Texture*>& enemyTextures, ChunksManager& chunksManager, Entt playerEntity, float dt);
+	void update(EntityManager& mgr, EntityFactory& entityFactory, const std::unordered_map<Enemies, sf::Texture*>& enemyTextures, ChunksManager& chunksManager, Entity playerEntity, float dt);
 
 	void setEnemySpawnChance(Enemies enemy, float newChance);
 	float defaultZombieSpawnChance = 0.6f;

@@ -80,7 +80,7 @@ private:
 	//ECS
 	EntityManager entityManager;
 	EntityFactory entityFactory{ entityManager };
-	Entt playerEntity;
+	Entity playerEntity;
 
 	//Systems
 	AISystem aiSystem;

@@ -218,7 +218,7 @@ BiomeType Chunk::getBiome() const
     return biome;
 }
 
-void Chunk::collisionsWithTerrain(CollisionComponent& collision, TransformComponent& transform, PhysicsComponent& physics, Entt e)
+void Chunk::collisionsWithTerrain(CollisionComponent& collision, TransformComponent& transform, PhysicsComponent& physics, Entity e)
 {
     //get bounds of entity in global x positions
     sf::FloatRect entityBounds = collision.bounds;

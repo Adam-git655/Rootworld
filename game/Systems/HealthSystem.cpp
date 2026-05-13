@@ -3,7 +3,7 @@
 
 void HealthSystem::update(EntityManager& mgr, Vec2& playerSpawnPos)
 {
-	std::vector<Entt> dead;
+	std::vector<Entity> dead;
 	auto& healthStorage = mgr.getComponentStorage<HealthComponent>();
 	auto& factionStorage = mgr.getComponentStorage<FactionComponent>();
 	auto& transformStorage = mgr.getComponentStorage<TransformComponent>();
@@ -34,7 +34,7 @@ void HealthSystem::update(EntityManager& mgr, Vec2& playerSpawnPos)
 		}
 	}
 
-	for (Entt e : dead)
+	for (Entity e : dead)
 	{
 		mgr.destroy(e);
 	}

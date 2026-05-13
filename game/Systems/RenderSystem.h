@@ -15,6 +15,6 @@ public:
 	bool showAIDebugLines = false;
 
 private:
-	void init(EntityManager& mgr, Entt e, RenderComponent& render);
+	void init(EntityManager& mgr, Entity e, RenderComponent& render);
 	void advanceAnimation(AnimationComponent& animation);
 };

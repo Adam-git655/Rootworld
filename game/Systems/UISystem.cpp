@@ -1,6 +1,6 @@
 #include "UISystem.h"
 
-void UISystem::renderUI(EntityManager& mgr, Entt playerEntity, 
+void UISystem::renderUI(EntityManager& mgr, Entity playerEntity, 
 						sf::Texture& heartTexture, bool renderInv,
 						std::unordered_map<std::string, ItemDef>& itemRegistry, ChunksManager& chunksManager, sf::Texture& shortSwordTex,
 						RenderSystem& renderSystem, EnemySpawnerSystem& enemySpawnerSystem, SoundManager& soundManager, bool& isLighting, bool& spawnZombies, bool& spawnBats, bool& enableDumbFollowAsFallback, bool& showAIDebugLines, float& masterVolume,
@@ -12,7 +12,7 @@ void UISystem::renderUI(EntityManager& mgr, Entt playerEntity,
 	renderSettings(mgr, chunksManager, renderSystem, enemySpawnerSystem, soundManager, isLighting, spawnZombies, spawnBats, enableDumbFollowAsFallback, showAIDebugLines, masterVolume);
 }
 
-void UISystem::renderHearts(EntityManager& mgr, Entt playerEntity, sf::Texture& heartTexture, sf::RenderWindow& window) const
+void UISystem::renderHearts(EntityManager& mgr, Entity playerEntity, sf::Texture& heartTexture, sf::RenderWindow& window) const
 {
 	auto& health = mgr.getComponent<HealthComponent>(playerEntity);
 	int totalHearts = health.maxHealth / 10;
@@ -45,7 +45,7 @@ void UISystem::renderHearts(EntityManager& mgr, Entt playerEntity, sf::Texture& 
 
 }
 
-void UISystem::renderHotbar(EntityManager& mgr, Entt playerEntity, std::unordered_map<std::string, ItemDef>& itemRegistry, ChunksManager& chunksManager, sf::Texture& shortSwordTex)
+void UISystem::renderHotbar(EntityManager& mgr, Entity playerEntity, std::unordered_map<std::string, ItemDef>& itemRegistry, ChunksManager& chunksManager, sf::Texture& shortSwordTex)
 {
 	auto& inv = mgr.getComponentStorage<InventoryComponent>().get(playerEntity);
 
@@ -142,7 +142,7 @@ void UISystem::renderHotbar(EntityManager& mgr, Entt playerEntity, std::unordere
 	ImGui::End();
 }
 
-void UISystem::renderInventory(EntityManager& mgr, Entt playerEntity, bool renderInv, std::unordered_map<std::string, ItemDef>& itemRegistry, ChunksManager& chunksManager, sf::Texture& shortSwordTex)
+void UISystem::renderInventory(EntityManager& mgr, Entity playerEntity, bool renderInv, std::unordered_map<std::string, ItemDef>& itemRegistry, ChunksManager& chunksManager, sf::Texture& shortSwordTex)
 {
 	if (!renderInv)
 		return;

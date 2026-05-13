@@ -9,31 +9,31 @@
 class EntityManager
 {
 public:
-	Entt create()
+	Entity create()
 	{
 		return entityID++;
 	}
 
 	template<typename T>
-	void addComponent(Entt e, const T& component)
+	void addComponent(Entity e, const T& component)
 	{
 		getStorage<T>().add(e, component);
 	}
 
 	template<typename T>
-	void removeComponent(Entt e)
+	void removeComponent(Entity e)
 	{
 		getStorage<T>().remove(e);
 	}
 
 	template<typename T>
-	bool hasComponent(Entt e)
+	bool hasComponent(Entity e)
 	{
 		return getStorage<T>().has(e);
 	}
 
 	template<typename T>
-	T& getComponent(Entt e)
+	T& getComponent(Entity e)
 	{
 		return getStorage<T>().get(e);
 	}
@@ -44,7 +44,7 @@ public:
 		return getStorage<T>();
 	}
 
-	void destroy(Entt e)
+	void destroy(Entity e)
 	{
 		for (auto& [type, storage] : storages)
 		{
@@ -53,7 +53,7 @@ public:
 	}
 
 private:
-	Entt entityID = 0;
+	Entity entityID = 0;
 
 	std::unordered_map<std::type_index, std::shared_ptr<IComponentStorage>> storages;
 

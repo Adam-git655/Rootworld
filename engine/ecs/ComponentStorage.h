@@ -7,38 +7,38 @@ class IComponentStorage
 {
 public:
 	virtual ~IComponentStorage() = default;
-	virtual void remove(Entt e) = 0;
+	virtual void remove(Entity e) = 0;
 };
 
 template<typename T>
 class ComponentStorage : public IComponentStorage
 {
 public:
-	void add(Entt e, const T& component)
+	void add(Entity e, const T& component)
 	{
 		components[e] = component;
 	}
 
-	void remove(Entt e) override
+	void remove(Entity e) override
 	{
 		components.erase(e);
 	}
 
-	bool has(Entt e)
+	bool has(Entity e)
 	{
 		return components.find(e) != components.end();
 	}
 
-	T& get(Entt e)
+	T& get(Entity e)
 	{
 		return components[e];
 	}
 
-	std::unordered_map<Entt, T>& getAll()
+	std::unordered_map<Entity, T>& getAll()
 	{
 		return components;
 	}
 
 private:
-	std::unordered_map<Entt, T> components;
+	std::unordered_map<Entity, T> components;
 };

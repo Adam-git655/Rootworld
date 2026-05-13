@@ -1,6 +1,6 @@
 #include "InventorySystem.h"
 
-void InventorySystem::addItem(EntityManager& mgr, Entt e, const std::string& itemId, int amount, std::unordered_map<std::string, ItemDef>& itemRegistry)
+void InventorySystem::addItem(EntityManager& mgr, Entity e, const std::string& itemId, int amount, std::unordered_map<std::string, ItemDef>& itemRegistry)
 {
 	auto& invStorage = mgr.getComponentStorage<InventoryComponent>();
 	auto& inv = invStorage.get(e);
@@ -27,7 +27,7 @@ void InventorySystem::addItem(EntityManager& mgr, Entt e, const std::string& ite
 	}
 }
 
-void InventorySystem::removeItem(EntityManager& mgr, Entt e, const std::string& itemId, int amount)
+void InventorySystem::removeItem(EntityManager& mgr, Entity e, const std::string& itemId, int amount)
 {
 	auto& invStorage = mgr.getComponentStorage<InventoryComponent>();
 	auto& inv = invStorage.get(e);

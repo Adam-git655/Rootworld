@@ -30,7 +30,7 @@ public:
 	std::vector<std::vector<Tile>>& getChunkTiles();
 	std::vector<int>& getSurfaceHeights();
 
-	void collisionsWithTerrain(CollisionComponent& collision, TransformComponent& transform, PhysicsComponent& physics, Entt e);
+	void collisionsWithTerrain(CollisionComponent& collision, TransformComponent& transform, PhysicsComponent& physics, Entity e);
 	void updateSand();
 private:
 	int chunkX;

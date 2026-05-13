@@ -1,6 +1,6 @@
 #include "RenderSystem.h"
 
-void RenderSystem::init(EntityManager& mgr, Entt e, RenderComponent& render)
+void RenderSystem::init(EntityManager& mgr, Entity e, RenderComponent& render)
 {
 	auto& transformStorage = mgr.getComponentStorage<TransformComponent>();
 	auto& animationStorage = mgr.getComponentStorage<AnimationComponent>();
