@@ -9,6 +9,7 @@ void MovementSystem::update(EntityManager& mgr, SoundManager& soundMgr, float dt
 	auto& renderStorage = mgr.getComponentStorage<RenderComponent>();
 	auto& aiStorage = mgr.getComponentStorage<AIComponent>();
 	auto& airAiStorage = mgr.getComponentStorage<AirAIComponent>();
+	auto& lightEmitterStorage = mgr.getComponentStorage<LightEmitterComponent>();
 
 	//Add Gravity to all entities which have a physics component
 	for (auto& [e, physics] : physicsStorage.getAll())
@@ -42,6 +43,16 @@ void MovementSystem::update(EntityManager& mgr, SoundManager& soundMgr, float dt
 
 		transform.prevPos = transform.position;
 		transform.position += physics.velocity * dt;
+
+		if (lightEmitterStorage.has(e))
+		{
+			auto& lightEmitter = lightEmitterStorage.get(e);
+			int newTileX = static_cast<int>(transform.position.x) / Chunk::TILESIZE;
+			int newTileY = static_cast<int>(transform.position.y) / Chunk::TILESIZE;
+
+			if (newTileX != lightEmitter.lastTileX || newTileY != lightEmitter.lastTileY)
+				lightEmitter.canUpdate = true;
+		}
 
 		if (physics.knockbackTimer > 0.0f)
 		{
@@ -96,6 +107,16 @@ void MovementSystem::update(EntityManager& mgr, SoundManager& soundMgr, float dt
 		transform.prevPos = transform.position;
 		transform.position += physics.velocity * dt;
 
+		if (lightEmitterStorage.has(e))
+		{
+			auto& lightEmitter = lightEmitterStorage.get(e);
+			int newTileX = static_cast<int>(transform.position.x) / Chunk::TILESIZE;
+			int newTileY = static_cast<int>(transform.position.y) / Chunk::TILESIZE;
+
+			if (newTileX != lightEmitter.lastTileX || newTileY != lightEmitter.lastTileY)
+				lightEmitter.canUpdate = true;
+		}
+
 		if (physics.knockbackTimer > 0.0f)
 		{
 			physics.knockbackTimer -= dt;
@@ -128,6 +149,16 @@ void MovementSystem::update(EntityManager& mgr, SoundManager& soundMgr, float dt
 
 		transform.prevPos = transform.position;
 		transform.position += physics.velocity * dt;
+
+		if (lightEmitterStorage.has(e))
+		{
+			auto& lightEmitter = lightEmitterStorage.get(e);
+			int newTileX = static_cast<int>(transform.position.x) / Chunk::TILESIZE;
+			int newTileY = static_cast<int>(transform.position.y) / Chunk::TILESIZE;
+
+			if (newTileX != lightEmitter.lastTileX || newTileY != lightEmitter.lastTileY)
+				lightEmitter.canUpdate = true;
+		}
 
 		if (physics.knockbackTimer > 0.0f)
 		{

@@ -12,6 +12,7 @@ Entity EntityFactory::createPlayer(Vec2& spawnPos, const sf::Texture& playerTex)
 	mgr.addComponent<InventoryComponent>(e, {});
 	mgr.addComponent<RenderComponent>(e, { false, {}, {2.0f, 2.0f}, playerTex, true });
 	mgr.addComponent<FactionComponent>(e, { Faction::Player });
+	mgr.addComponent<LightEmitterComponent>(e, {5, sf::Color::White, true, -1, -1});
 
 	AnimationComponent anim;
 	anim.addAnimation("idle", {0, 0, 0, 10, 20, 26, 0.035f, false});
@@ -38,6 +39,7 @@ Entity EntityFactory::createZombie(Vec2& spawnPos, const sf::Texture& zombieTex,
 	mgr.addComponent<FactionComponent>(e, { Faction::Enemy });
 	mgr.addComponent<WeaponComponent>(e, { "fist", 5.0f, {}, 1.75f, 50.0f, false, 150.0f});
 	mgr.addComponent<EnemyDayNightComponent>(e, { false });
+	mgr.addComponent<LightEmitterComponent>(e, { 3, sf::Color::White, true, -1, -1 });
 
 	AnimationComponent anim;
 	anim.addAnimation("idle", { 0, 0, 0, 0, 157, 213, 0.06f, false });
@@ -60,6 +62,7 @@ Entity EntityFactory::createBloodBat(Vec2& spawnPos, const sf::Texture& bloodBat
 	mgr.addComponent<FactionComponent>(e, { Faction::Enemy });
 	mgr.addComponent<WeaponComponent>(e, { "teeth", 3.0f, {}, 1.5f, 100.0f, false, 100.0f});
 	mgr.addComponent<EnemyDayNightComponent>(e, { true });
+	mgr.addComponent<LightEmitterComponent>(e, { 3, sf::Color::White, true, -1, -1 });
 
 	AnimationComponent anim;
 	anim.addAnimation("flight", { 0, 1050, 150, 0, 150, 150, 0.06f, false });

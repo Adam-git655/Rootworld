@@ -240,6 +240,7 @@ void Game::Update()
 
 	enemySpawnerSystem.update(entityManager, entityFactory, enemyTextures, chunksManager, playerEntity, deltaTime);
 	dayNightSystem.update(entityManager, worldClock, deltaTime);
+	lightEmitterSystem.update(entityManager, lightingSystem, chunksManager);
 	combatSystem.update(entityManager, soundManager);
 	healthSystem.update(entityManager, playerSpawnPos);
 	renderSystem.update(entityManager, deltaTime);

@@ -21,6 +21,7 @@
 #include "Systems/EnemySpawnerSystem.h"
 #include "Systems/DayNightSystem.h"
 #include "Systems/UISystem.h"
+#include "Systems/LightEmitterSystem.h"
 
 #include <vector>
 
@@ -92,6 +93,7 @@ private:
 	EnemySpawnerSystem enemySpawnerSystem;
 	DayNightSystem dayNightSystem;
 	UISystem uiSystem;
+	LightEmitterSystem lightEmitterSystem;
 
 	//Inventory
 	bool renderInventory = false;

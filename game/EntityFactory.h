@@ -15,6 +15,7 @@
 #include "game/Components/TransformComponent.h"
 #include "game/Components/WeaponComponent.h"
 #include "game/Components/EnemyDayNightComponent.h"
+#include "game/Components/LightEmmiterComponent.h"
 
 class EntityFactory
 {

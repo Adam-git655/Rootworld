@@ -8,8 +8,10 @@
 #include "game/Components/RenderComponent.h"
 #include "game/Components/AIComponent.h"
 #include "game/Components/AirAIComponent.h"
+#include "game/Components/LightEmmiterComponent.h"
 
 #include "SoundManager.h"
+#include "engine/world/Chunk.h"
 
 class MovementSystem
 {
